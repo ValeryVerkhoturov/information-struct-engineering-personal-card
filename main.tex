@@ -1,0 +1,198 @@
+\documentclass[10pt,a4paper]{article}
+
+\title{Проектирование реляционных отношений личной карточки}
+\author{Верхотуров В.С. БСБО-05-20 \\ РТУ МИРЭА}
+\date{Март 2022}
+
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=0.7in,
+            right=0.7in,
+            top=0.7in,
+            bottom=0.7in,
+            footskip=.25in]{geometry}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{array}
+
+% Macros
+
+%% Keys
+
+%%% Primary Key
+\newcommand{\pk}[1]{\textbf{#1}}
+
+%%% Foreign Key
+\newcommand{\fk}[1]{\textit{#1}}
+
+%%% Primary Foreign Key
+\newcommand{\pfk}[1]{\pk{\fk{#1}}}
+
+
+%% Columns
+\newcommand{\firstColumn}[4]{#1 - #2 - #3 \newline #4}
+
+\newcommand{\thirdColumn}[6]{#1 \newline Первичный ключ - #2 \newline Внешние ключ(-и): #3 \newline #4 \newline Первичный ключ - #5 \newline Внешние ключ(-и): #6}
+
+
+%%  Rules
+
+%%% 1
+\newcommand{\ruleOneMondatoryOneMondatoryNum}{1}
+\newcommand{\ruleOneMondatoryOneMondatory}{1 Об - 1 Об}
+
+%%% 2
+\newcommand{\ruleOneMondatoryOneOptionalNum}{2}
+\newcommand{\ruleOneMondatoryOneOptional}{1 Об - 1 Н/О}
+\newcommand{\ruleOneOptionalOneMondatoryNum}{2}
+\newcommand{\ruleOneOptionalOneMondatory}{1 Н/О - 1 Об}
+
+%%% 3
+\newcommand{\ruleOneOptionalOneOptionalNum}{3}
+\newcommand{\ruleOneOptionalOneOptional}{1 Н/О - 1 Н/О}
+
+%%% 4
+\newcommand{\ruleOneOptionalManyMondatoryNum}{4}
+\newcommand{\ruleOneOptionalManyMondatory}{1 Н/О - М Об}
+\newcommand{\ruleManyMondatoryOneOptionalNum}{4}
+\newcommand{\ruleManyMondatoryOneOptional}{М Об - 1 Н/О}
+
+%%% 5
+\newcommand{\ruleOneMondatoryManyOptionalNum}{5}
+\newcommand{\ruleOneMondatoryManyOptional}{1 Об - М Н/О}
+\newcommand{\ruleManyOptionalOneMondatoryNum}{5}
+\newcommand{\ruleManyOptionalOneMondatory}{М Н/О - 1 Об}
+
+%%% 6
+\newcommand{\ruleManyOptionalManyOptionalNum}{6}
+\newcommand{\ruleManyOptionalManyOptional}{М Н/О - М Н/О}
+
+%% Entities
+
+%%% Работник
+\newcommand{\rabotnik}{Работник (\pk{Табельный номер}, Фамилия, Имя, Отчество, Инициалы, ИНН, СНИЛС, Пол, Дата рождения, Место рождения, \fk{Код ОКАТО места рождения}, Номер паспорта, Дата выдачи паспорта, Орган выдачи паспорта, Адрес места жительства по паспорту, Индекс адреса места жительства по паспорту, Адрес места жительства фактический, Индекс адреса места жительства фактический, Дата регистрации по месту жительства, Номер телефона, Дополнительные сведения)}
+
+%%% Старые ФИО
+\newcommand{\starieFIO}{Старые ФИО (\pfk{Табельный номер}, \pk{Номер изменения фамилии}, ФИО, Документ - основание)}
+
+%%% Классификатор гражданства
+\newcommand{\kGrazhdanstva}{Классификатор гражданства (\pk{Табельный номер}, Наименование гражданства)}
+
+%%% Классификатор стран
+\newcommand{\kStran}{Классификатор стран (\pk{Код страны}, Наименование страны)}
+
+%%% Классификатор иностранного языка
+\newcommand{\kInostrannogoYazika}{Классификатор иностранного языка (\pk{Код иностранного языка}, Наименование иностранного языка)}
+
+%%% Классификатор степени знания иностранного языка
+\newcommand{\kStepeniZnaniaInostrannogoYazika}{Классификатор степени знания иностранного языка (\pk{Код степени знания}, Наименование степени знания)}
+
+%%% Знание иностранного языка
+\newcommand{\znanieInostrannogoYazika}{Знание иностранного языка (\pfk{Табельный номер}, \pk{Код иностранного языка}, Код степени знания иностранного языка)}
+
+%%% Организация штатного расписания
+\newcommand{\organizatsiyaShtatnogoRaspisaniya}{Организация штатного расписания (\pk{Номер штатного расписания}, Дата сопоставления, Период с, Период по)}
+
+%%% Классификатор подразделения
+\newcommand{\kPodrazdeleniya}{Классификатор подразделения (\pk{Код подразделения}, Наименование подразделения, Условное обозначение, Аббревиатура)}
+
+%%% Классификатор должностей
+\newcommand{\kDolzhostey}{Классификатор должностей (\pk{Код должности}, Наименование должности, Код ОКПДТР)}
+
+%%% Штатные единицы
+\newcommand{\shtatnieEdinitsi}{Штатные единицы (Кол - во штатных единиц, \pfk{Номер штатного расписания организации}, \pfk{Код подразделения}, \pfk{Код основной должности}, Тарифная ставка, Надбавка, \fk{Код другой должности}, \pk{Дата назначения}, Основание, \fk{Код основания прекращения трудового договора})}
+
+%%% Приказ
+\newcommand{\prikaz}{Приказ (\pk{Номер приказа}, Дата приказа, Тема)}
+
+%%% Трудовой договор
+\newcommand{\trudovoiDogovor}{Трудовой договор (\pk{Номер трудового договора}, Дата, Дата с, Дата по, Дата испытательного срока, Ставка, \fk{Код основания прекращения})}
+
+%%% Классификатор характера работы
+\newcommand{\kHarakteraRaboti}{Классификатор характера работы (\pk{Код характера}, Наименование характера)}
+
+%%% Классификатор образования
+\newcommand{\kObrazovania}{Классификатор образования (\pk{Код образования}, Наименование образования)}
+
+%%% Классификатор направления
+\newcommand{\kNapravlenia}{Классификатор направления (\pk{Код ОКСО}, Наименование направления)}
+
+%%% Документ об образовании
+\newcommand{\documentObObrazovanii}{Документ об образовании (\pfk{Табельный номер}, \pk{Номер}, Вид документа, Учреждение, Серия, Номер, Квалификация, \fk{Направление})}
+
+%%% Стаж работы
+\newcommand{\stazhRaboti}{Стаж работы (Дата с, Дата по, \pfk{Табельный номер}, \pk{Номер работы})}
+
+%%% Классификатор состояния в браке
+\newcommand{\kSostoyaniaVBrake}{Классификатор состояния в браке (\pk{Код ОКИН}, Наименование)}
+
+%%% Состояние в браке
+\newcommand{\sostoyaniyeVBrake}{Состояние в браке (\pfk{Табельный номер}, \fk{Код ОКИН}, Дата с, Дата по, \pk{Номер изменения состояния})}
+
+%%% Классификатор родства
+\newcommand{\kRodstva}{Классификатор родства (\pk{Код ОКИН}, Наименование)}
+
+%%% Родственники
+\newcommand{\rodtvenniki}{Родственники (Фамилия, Имя, Отчество, \fk{Код родства}, Год рождения, \pfk{Табельный номер}, \pk{Номер родственника})}
+
+%%% Воинский учет
+\newcommand{\voinsiyUchet}{Воинский учет (\pfk{Табельный номер}, \fk{Код воинского звания}, \fk{Код состава (профиля)}, Полный код обозначения ВУС, Категория годности к военной службе, Наименование военного комиссариата по месту жительства, Общий воинский учет, Специальный воинский учет, Отметка о снятии воинского учета, \fk{Табельный номер работника кадровой службы}, Дата)}
+
+%%% Классификатор воинских званий
+\newcommand{\kVoinskihZvaniy}{Классификатор воинских званий (\pk{Код ОКИН}, Наименование)}
+
+%%% Классификатор составов
+\newcommand{\kSostavov}{Классификатор составов (\pk{Код ОКИН}, Наименование)}
+
+%%% Аттестация
+\newcommand{\attestatsiya}{Аттестация (Дата, \fk{Код решения комиссии}, Номер протокола, Дата протокола, Основание, \pfk{Табельный номер})}
+
+%%% Классификатор решений комиссий
+\newcommand{\kResheniyKomissii}{Классификатор решений комиссий (\pk{Код решения комиссии}, Наименование)}
+
+%%% Повышение квалификации
+\newcommand{\povishenieKvalifikatsii}{Повышение квалификации (Дата с, Дата после, \fk{Код вида повышения квалификации}, Наименование, адрес, Наименование образовательного учреждения, Наименование документа, Дата документа, Серия, номер документа, Основание, \pfk{табельный номер}, \pk{Номер})}
+
+%%% Профессиональная переподготовка
+\newcommand{\kResheniyKomissii}{Профессиональная переподготовка (\pk{Дата с}, Дата по,)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+\section{Схема реляционного отношения}
+
+\begin{center}
+\begin{tabular}{ | m{10em} | m{1em}| m{30em} | } 
+ \hline
+ \firstColumn{Работник}{Изменял}{Старые ФИО}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{Табельный номер}{нет}{\starieFIO}{Табельный номер, Номер изменения фамилии}{Табельный номер} \\ 
+ 
+ \hline
+ cell4 & cell5 & cell6 \\ 
+ cell7 & cell8 & cell9 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+
+\end{document}
