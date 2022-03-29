@@ -2,7 +2,7 @@
 
 \title{Проектирование реляционных отношений личной карточки}
 \author{Верхотуров В.С. БСБО-05-20 \\ РТУ МИРЭА}
-\date{Март 2022}
+\date{Апрель 2022}
 
 \usepackage[a4paper,
             bindingoffset=0.2in,
@@ -17,6 +17,7 @@
 \usepackage[russian]{babel}
 
 \usepackage{array}
+\usepackage{longtable}
 
 % Macros
 
@@ -35,7 +36,7 @@
 %% Columns
 \newcommand{\firstColumn}[4]{#1 - #2 - #3 \newline #4}
 
-\newcommand{\thirdColumn}[6]{#1 \newline Первичный ключ - #2 \newline Внешние ключ(-и): #3 \newline #4 \newline Первичный ключ - #5 \newline Внешние ключ(-и): #6}
+\newcommand{\thirdColumn}[6]{#1 \newline Первичный ключ - #2 \newline Внешний(е) ключ(-и): #3 \newline #4 \newline Первичный ключ - #5 \newline Внешний(е) ключ(-и): #6}
 
 
 %%  Rules
@@ -60,11 +61,21 @@
 \newcommand{\ruleManyMondatoryOneOptionalNum}{4}
 \newcommand{\ruleManyMondatoryOneOptional}{М Об - 1 Н/О}
 
+\newcommand{\ruleOneMondatoryManyMondatoryNum}{4}
+\newcommand{\ruleOneMondatoryManyMondatory}{1 Об - М Об}
+\newcommand{\ruleManyMondatoryOneMondatoryNum}{4}
+\newcommand{\ruleManyMondatoryOneMondatory}{М Об - 1 Об}
+
 %%% 5
 \newcommand{\ruleOneMondatoryManyOptionalNum}{5}
 \newcommand{\ruleOneMondatoryManyOptional}{1 Об - М Н/О}
 \newcommand{\ruleManyOptionalOneMondatoryNum}{5}
 \newcommand{\ruleManyOptionalOneMondatory}{М Н/О - 1 Об}
+
+\newcommand{\ruleOneOptionalManyOptionalNum}{5}
+\newcommand{\ruleOneOptionalManyOptional}{1 Н/О - М Н/О}
+\newcommand{\ruleManyOptionalOneOptionalNum}{5}
+\newcommand{\ruleManyOptionalOneOptional}{М Н/О - 1 Н/Щ}
 
 %%% 6
 \newcommand{\ruleManyOptionalManyOptionalNum}{6}
@@ -75,103 +86,224 @@
 %%% Работник
 \newcommand{\rabotnik}{Работник (\pk{Табельный номер}, Фамилия, Имя, Отчество, Инициалы, ИНН, СНИЛС, Пол, Дата рождения, Место рождения, \fk{Код ОКАТО места рождения}, Номер паспорта, Дата выдачи паспорта, Орган выдачи паспорта, Адрес места жительства по паспорту, Индекс адреса места жительства по паспорту, Адрес места жительства фактический, Индекс адреса места жительства фактический, Дата регистрации по месту жительства, Номер телефона, Дополнительные сведения)}
 
+\newcommand{\rabotnikPK}{Табельный номер}
+\newcommand{\rabotnikFK}{Код ОКАТО места рождения}
+
 %%% Старые ФИО
 \newcommand{\starieFIO}{Старые ФИО (\pfk{Табельный номер}, \pk{Номер изменения фамилии}, ФИО, Документ - основание)}
 
-%%% Классификатор гражданства
-\newcommand{\kGrazhdanstva}{Классификатор гражданства (\pk{Табельный номер}, Наименование гражданства)}
+\newcommand{\starieFIOPK}{Табельный номер, Номер изменения фамилии}
+\newcommand{\starieFIOFK}{Табельный номер}
 
-%%% Классификатор стран
-\newcommand{\kStran}{Классификатор стран (\pk{Код страны}, Наименование страны)}
+%%% Классификатор гражданства
+\newcommand{\kGrazhdanstva}{Классификатор гражданства (\pk{Код гражданства}, Наименование гражданства)}
+
+\newcommand{\kGrazhdanstvaPK}{Код гражданства}
+\newcommand{\kGrazhdanstvaFK}{-}
+
+%%% Страны
+\newcommand{\strani}{Страны (\pk{Код страны}, \pfk{Табельный номер}, Наименование страны, Дата выдачи, Вид документа, Наименование документа)}
+
+\newcommand{\straniPK}{Табельный номер, Код страны, }
+\newcommand{\straniFK}{Табельный номер}
 
 %%% Классификатор иностранного языка
 \newcommand{\kInostrannogoYazika}{Классификатор иностранного языка (\pk{Код иностранного языка}, Наименование иностранного языка)}
 
+\newcommand{\kInostrannogoYazikaPK}{Код иностранного языка}
+\newcommand{\kInostrannogoYazikaFK}{-}
+
 %%% Классификатор степени знания иностранного языка
 \newcommand{\kStepeniZnaniaInostrannogoYazika}{Классификатор степени знания иностранного языка (\pk{Код степени знания}, Наименование степени знания)}
+
+\newcommand{\kStepeniZnaniaInostrannogoYazikaPK}{Код степени знания}
+\newcommand{\kStepeniZnaniaInostrannogoYazikaFK}{-}
 
 %%% Знание иностранного языка
 \newcommand{\znanieInostrannogoYazika}{Знание иностранного языка (\pfk{Табельный номер}, \pk{Код иностранного языка}, Код степени знания иностранного языка)}
 
-%%% Организация штатного расписания
-\newcommand{\organizatsiyaShtatnogoRaspisaniya}{Организация штатного расписания (\pk{Номер штатного расписания}, Дата сопоставления, Период с, Период по)}
+\newcommand{\znanieInostrannogoYazikaPK}{Табельный номер, Код иностранного языка}
+\newcommand{\znanieInostrannogoYazikaFK}{-}
+
+%%% Штатное расписание организации
+\newcommand{\shtatnoyeRaspisanieOrganizatsii}{Организация штатного расписания (\pk{Номер штатного расписания}, Дата сопоставления, Период с, Период по, \fk{Номер приказа})}
+
+\newcommand{\shtatnoyeRaspisanieOrganizatsiiPK}{Номер штатного расписания}
+\newcommand{\shtatnoyeRaspisanieOrganizatsiiFK}{Номер приказа}
 
 %%% Классификатор подразделения
 \newcommand{\kPodrazdeleniya}{Классификатор подразделения (\pk{Код подразделения}, Наименование подразделения, Условное обозначение, Аббревиатура)}
 
+\newcommand{\kPodrazdeleniyaPK}{Код подразделения}
+\newcommand{\kPodrazdeleniyaFK}{-}
+
 %%% Классификатор должностей
 \newcommand{\kDolzhostey}{Классификатор должностей (\pk{Код должности}, Наименование должности, Код ОКПДТР)}
+
+\newcommand{\kDolzhosteyPK}{Код должности}
+\newcommand{\kDolzhosteyFK}{-}
 
 %%% Штатные единицы
 \newcommand{\shtatnieEdinitsi}{Штатные единицы (Кол - во штатных единиц, \pfk{Номер штатного расписания организации}, \pfk{Код подразделения}, \pfk{Код основной должности}, Тарифная ставка, Надбавка, \fk{Код другой должности}, \pk{Дата назначения}, Основание, \fk{Код основания прекращения трудового договора})}
 
+\newcommand{\shtatnieEdinitsiPK}{Номер штатного расписания организации, Код подразделения, Код основной должности, Дата назначения}
+\newcommand{\shtatnieEdinitsiFK}{Номер штатного расписания организации, Код подразделения, Код основной должности, Код другой должности, Код основания прекращения трудового договора}
+
 %%% Приказ
 \newcommand{\prikaz}{Приказ (\pk{Номер приказа}, Дата приказа, Тема)}
 
+\newcommand{\prikazPK}{Номер приказа}
+\newcommand{\prikazFK}{-}
+
 %%% Трудовой договор
-\newcommand{\trudovoiDogovor}{Трудовой договор (\pk{Номер трудового договора}, Дата, Дата с, Дата по, Дата испытательного срока, Ставка, \fk{Код основания прекращения})}
+\newcommand{\trudovoiDogovor}{Трудовой договор (\pk{Номер трудового договора}, Дата, Дата с, Дата по, Дата испытательного срока, Ставка, \fk{Код основания прекращения}, \fk{Код вида работы}, \fk{Код решения комиссии})}
+
+\newcommand{\trudovoiDogovorPK}{Номер трудового договора, }
+\newcommand{\trudovoiDogovorFK}{Код основания прекращения, Код вида работы, Код решения комиссии}
 
 %%% Классификатор характера работы
 \newcommand{\kHarakteraRaboti}{Классификатор характера работы (\pk{Код характера}, Наименование характера)}
 
+\newcommand{\kHarakteraRabotiPK}{Код характера}
+\newcommand{\kHarakteraRabotiFK}{-}
+
+%%% Классификатор вида работы
+\newcommand{\kVidaRaboti}{Классификатор вида работы (\pk{Код вида работы}, Наименование вида работы)}
+
+\newcommand{\kVidaRabotiPK}{Код вида работы}
+\newcommand{\kVidaRabotiFK}{-}
+
+%%% Классификатор основания прекращения трудового договора
+\newcommand{\kOsnovaniyaPrekrascheniaTrudovogoDogovora}{Классификатор основания прекращения трудового договора (\pk{Код}, Наименование)}
+
+\newcommand{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraPK}{Код}
+\newcommand{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraFK}{-}
+
 %%% Классификатор образования
 \newcommand{\kObrazovania}{Классификатор образования (\pk{Код образования}, Наименование образования)}
+
+\newcommand{\kObrazovaniaPK}{Код образования}
+\newcommand{\kObrazovaniaFK}{-}
 
 %%% Классификатор направления
 \newcommand{\kNapravlenia}{Классификатор направления (\pk{Код ОКСО}, Наименование направления)}
 
+\newcommand{\kNapravleniaPK}{Код ОКСО}
+\newcommand{\kNapravleniaFK}{-}
+
 %%% Документ об образовании
 \newcommand{\documentObObrazovanii}{Документ об образовании (\pfk{Табельный номер}, \pk{Номер}, Вид документа, Учреждение, Серия, Номер, Квалификация, \fk{Направление})}
+
+\newcommand{\documentObObrazovaniiPK}{Табельный номер, Номер}
+\newcommand{\documentObObrazovaniiFK}{Табельный номер, Направление}
 
 %%% Стаж работы
 \newcommand{\stazhRaboti}{Стаж работы (Дата с, Дата по, \pfk{Табельный номер}, \pk{Номер работы})}
 
+\newcommand{\stazhRabotiPK}{Табельный номер, Номер работы}
+\newcommand{\stazhRabotiFK}{Номер работы}
+
 %%% Классификатор состояния в браке
 \newcommand{\kSostoyaniaVBrake}{Классификатор состояния в браке (\pk{Код ОКИН}, Наименование)}
+
+\newcommand{\kSostoyaniaVBrakePK}{Код ОКИН}
+\newcommand{\kSostoyaniaVBrakeFK}{-}
 
 %%% Состояние в браке
 \newcommand{\sostoyaniyeVBrake}{Состояние в браке (\pfk{Табельный номер}, \fk{Код ОКИН}, Дата с, Дата по, \pk{Номер изменения состояния})}
 
+\newcommand{\sostoyaniyeVBrakePK}{Табельный номер, Номер изменения состояния}
+\newcommand{\sostoyaniyeVBrakeFK}{Табельный номер, Код ОКИН}
+
 %%% Классификатор родства
 \newcommand{\kRodstva}{Классификатор родства (\pk{Код ОКИН}, Наименование)}
+
+\newcommand{\kRodstvaPK}{Код ОКИН}
+\newcommand{\kRodstvaFK}{-}
 
 %%% Родственники
 \newcommand{\rodtvenniki}{Родственники (Фамилия, Имя, Отчество, \fk{Код родства}, Год рождения, \pfk{Табельный номер}, \pk{Номер родственника})}
 
+\newcommand{\rodtvennikiPK}{Табельный номер, Номер родственника}
+\newcommand{\rodtvennikiFK}{Код родства, Табельный номер}
+
 %%% Воинский учет
 \newcommand{\voinsiyUchet}{Воинский учет (\pfk{Табельный номер}, \fk{Код воинского звания}, \fk{Код состава (профиля)}, Полный код обозначения ВУС, Категория годности к военной службе, Наименование военного комиссариата по месту жительства, Общий воинский учет, Специальный воинский учет, Отметка о снятии воинского учета, \fk{Табельный номер работника кадровой службы}, Дата)}
+
+\newcommand{\voinsiyUchetPK}{Табельный номер}
+\newcommand{\voinsiyUchetFK}{Табельный номер, Код воинского звания, Код состава (профиля), Табельный номер работника кадровой службы}
 
 %%% Классификатор воинских званий
 \newcommand{\kVoinskihZvaniy}{Классификатор воинских званий (\pk{Код ОКИН}, Наименование)}
 
+\newcommand{\kVoinskihZvaniyPK}{Код ОКИН}
+\newcommand{\kVoinskihZvaniyFK}{-}
+
 %%% Классификатор составов
 \newcommand{\kSostavov}{Классификатор составов (\pk{Код ОКИН}, Наименование)}
+
+\newcommand{\kSostavovPK}{Код ОКИН}
+\newcommand{\kSostavovFK}{-}
 
 %%% Аттестация
 \newcommand{\attestatsiya}{Аттестация (Дата, \fk{Код решения комиссии}, Номер протокола, Дата протокола, Основание, \pfk{Табельный номер})}
 
+\newcommand{\attestatsiyaPK}{Табельный номер}
+\newcommand{\attestatsiyaFK}{Табельный номер, Код решения комиссии}
+
 %%% Классификатор решений комиссий
 \newcommand{\kResheniyKomissii}{Классификатор решений комиссий (\pk{Код решения комиссии}, Наименование)}
 
+\newcommand{\kResheniyKomissiiPK}{Код решения комиссии}
+\newcommand{\kResheniyKomissiiFK}{-}
+
 %%% Повышение квалификации
-\newcommand{\povishenieKvalifikatsii}{Повышение квалификации (Дата с, Дата после, \fk{Код вида повышения квалификации}, Наименование, адрес, Наименование образовательного учреждения, Наименование документа, Дата документа, Серия, номер документа, Основание, \pfk{табельный номер}, \pk{Номер})}
+\newcommand{\povishenieKvalifikatsii}{Повышение квалификации (Дата с, Дата после, \fk{Код вида повышения квалификации}, Наименование, адрес, Наименование образовательного учреждения, Наименование документа, Дата документа, Серия, номер документа, Основание, \pfk{Табельный номер}, \pk{Номер})}
+
+\newcommand{\povishenieKvalifikatsiiPK}{Табельный номер, Номер}
+\newcommand{\povishenieKvalifikatsiiFK}{Код вида повышения квалификации, Табельный номер}
 
 %%% Профессиональная переподготовка
-\newcommand{\kResheniyKomissii}{Профессиональная переподготовка (\pk{Дата с}, Дата по,)}
+\newcommand{\professionalnayaPerepodgatovka}{Профессиональная переподготовка (\pk{Дата с}, Дата по, Код специальности, Наименование документа, Номер документа, Дата, Основание, \pfk{Табельный номер})}
 
+\newcommand{\professionalnayaPerepodgatovkaPK}{Дата с, Табельный номер}
+\newcommand{\professionalnayaPerepodgatovkaFK}{Табельный номер}
 
+%%% Награды, почетные звания
+\newcommand{\nagradiPochetnieZvaniya}{Награды, почетные звания (\fk{Код награды}, Наименование документа, Номер документа, Дата документа, \pk{Номер награды}, \pfk{Табельный номер})}
 
+\newcommand{\nagradiPochetnieZvaniyaPK}{Номер награды, Табельный номер}
+\newcommand{\nagradiPochetnieZvaniyaFK}{Код награды, Табельный номер}
 
+%%% Отпуск
+\newcommand{\otpusk}{Отпуск (\fk{Код вида отпуска}, Период работы с, Периода работы по, Кол - во календарных дней отпуска, Дата с, Дата по, Основание, \pk{Номер отпуска}, \pfk{Табельный номер})}
 
+\newcommand{\otpuskPK}{Номер отпуска, Табельный номер}
+\newcommand{\otpuskFK}{Код вида отпуска, Табельный номер}
 
+%%% Социальные льготы
+\newcommand{\sotsialnieLgoti}{Социальные льготы (Наименование льготы, Номер документа, Дата документа, Основание, \pfk{Табельный номер}, \pk{Номер льготы}, \fk{Код вида отпуска})}
 
+\newcommand{\sotsialnieLgotiPK}{Табельный номер, Номер льготы}
+\newcommand{\sotsialnieLgotiFK}{Табельный номер, Код вида отпуска}
 
+%%% Классификатор вида отпуска
+\newcommand{\kVidaOtpuska}{Классификатор вида отпуска (\pk{Код}, Наименование)}
 
+\newcommand{\kVidaOtpuskaPK}{Код}
+\newcommand{\kVidaOtpuskaFK}{-}
 
+%%% Классификатор вида повышения квалификации
+\newcommand{\kVidaPovisheniyaKvalifikatsii}{Классификатор вида повышения квалификации (\pk{Код}, Наименование)}
 
+\newcommand{\kVidaPovisheniyaKvalifikatsiiPK}{Код}
+\newcommand{\kVidaPovisheniyaKvalifikatsiiFK}{-}
 
+%%% Классификатор наград
+\newcommand{\kNagrad}{Классификатор наград (\pk{Код}, Наименование)}
 
-
+\newcommand{\kNagradPK}{Код}
+\newcommand{\kNagradFK}{-}
 
 
 \begin{document}
@@ -181,17 +313,127 @@
 \section{Схема реляционного отношения}
 
 \begin{center}
-\begin{tabular}{ | m{10em} | m{1em}| m{30em} | } 
+\begin{longtable}{ | m{10em} | m{0.5em}| m{30em} | } 
  \hline
- \firstColumn{Работник}{Изменял}{Старые ФИО}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{Табельный номер}{нет}{\starieFIO}{Табельный номер, Номер изменения фамилии}{Табельный номер} \\ 
+ \firstColumn{Работник}{Изменял}{Старые ФИО}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\starieFIO}{\starieFIOPK}{\starieFIOFK} \\ 
  
  \hline
- cell4 & cell5 & cell6 \\ 
- cell7 & cell8 & cell9 \\ 
+ \firstColumn{Работник}{Имеет}{Классификатор гражданства}{\ruleManyOptionalOneMondatory} & \ruleManyOptionalOneMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\kGrazhdanstva}{\kGrazhdanstvaPK}{\kGrazhdanstvaFK} \\ 
+ 
  \hline
-\end{tabular}
-\end{center}
+ \firstColumn{Работник}{Имеет}{Профессиональная переподготовка}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\professionalnayaPerepodgatovka}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK} \\ 
+ 
+ \hline
+ \firstColumn{Профессиональная переподготовка}{Определяет}{Классификатор должностей}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\professionalnayaPerepodgatovka}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK}{\kDolzhostey}{\kDolzhosteyPK}{\kDolzhosteyFK} \\ 
+ 
+ \hline
+ \firstColumn{Классификатор должностей}{Имеется}{Штатные единицы}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\kDolzhostey}{\kDolzhosteyPK}{\kDolzhosteyFK}{\shtatnieEdinitsi}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnieEdinitsiPK} \\ 
+ 
+ \hline
+ \firstColumn{Штатные единицы}{Имеет}{Классификатор подразделения}{\ruleManyMondatoryOneMondatory} & \ruleManyMondatoryOneMondatoryNum & \thirdColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\kPodrazdeleniya}{\kPodrazdeleniyaPK}{\kPodrazdeleniyaFK} \\ 
+ 
+ \hline
+ \firstColumn{Штатные единицы}{Включает}{Штатное расписание организации}{\ruleManyMondatoryOneMondatory} & \ruleManyMondatoryOneMondatoryNum & \thirdColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\shtatnoyeRaspisanieOrganizatsii}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK} \\ 
+ 
+ \hline
+ \firstColumn{Штатное расписание организации}{Утверждает}{Приказ}{\ruleOneMondatoryOneOptional} & \ruleOneMondatoryOneOptionalNum & \thirdColumn{\shtatnoyeRaspisanieOrganizatsii}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK}{\prikaz}{\prikazPK}{\prikazFK} \\ 
+ 
+ \hline
+ \firstColumn{Приказ}{Соответствует}{Трудовой договор}{\ruleOneOptionalManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\prikaz}{\prikazPK}{\prikazFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
+ 
+ \hline
+ \firstColumn{Штатные единицы}{Принимается}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
+ 
+ \hline
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор характера работы}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kHarakteraRaboti}{\kHarakteraRabotiPK}{\kHarakteraRabotiFK} \\ 
+ 
+ \hline
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор вида работы}{\ruleManyOptionalOneMondatory} & \ruleManyOptionalOneMondatoryNum & \thirdColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kVidaRaboti}{\kDolzhosteyPK}{\attestatsiyaFK} \\ 
+ 
+ \hline
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор основания прекращения трудовой деятельности}{\ruleManyOptionalOneMondatory} & \ruleManyOptionalOneMondatoryNum & \thirdColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kOsnovaniyaPrekrascheniaTrudovogoDogovora}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraPK}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Заключает}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
 
+ \hline
+ \firstColumn{Работник}{Имеет}{Страны}{\ruleManyOptionalOneOptional} & \ruleManyOptionalOneOptionalNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\strani}{\straniPK}{\straniFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Аттестован}{Аттестация}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\attestatsiya}{\attestatsiyaPK}{\attestatsiyaFK} \\ 
+ 
+ \hline
+ \firstColumn{Аттестация}{Определяет}{Классификатор решения комиссии}{\ruleOneMondatoryOneOptional} & \ruleOneMondatoryOneOptionalNum & \thirdColumn{\attestatsiya}{\attestatsiyaPK}{\attestatsiyaFK}{\kResheniyKomissii}{\kResheniyKomissiiPK}{\kResheniyKomissiiFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Состоит}{Воинский учет}{\ruleOneOptionalOneMondatory} & \ruleOneOptionalOneMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK} \\ 
+ 
+ \hline
+ \firstColumn{Воиский учет}{Определяет}{Классификатор составов}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK}{\kSostavov}{\kSostavovPK}{\kSostavovFK} \\ 
+ 
+ \hline
+ \firstColumn{Воинский учет}{Определяет}{Классификатор воинского звания}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK}{\kVoinskihZvaniy}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Повышение квалификации}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\povishenieKvalifikatsii}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK} \\ 
+ 
+ \hline
+ \firstColumn{Повышение квалификации}{Определяет}{Классификатор вида повышения квалификации}{\ruleOneMondatoryOneOptional} & \ruleOneMondatoryOneOptionalNum & \thirdColumn{\povishenieKvalifikatsii}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK}{\kVidaPovisheniyaKvalifikatsii}{\kVidaPovisheniyaKvalifikatsiiPK}{\kVidaPovisheniyaKvalifikatsiiFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Знает}{Знание иностранного языка}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK} \\ 
+ 
+ \hline
+ \firstColumn{Знание иностранного языка}{Знают}{Классификатор иностранного языка}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{\kInostrannogoYazika}{\kInostrannogoYazikaPK}{\kInostrannogoYazikaFK} \\ 
+ 
+ \hline
+ \firstColumn{Знание иностранного языка}{Знает как}{Классификатор степени знания иностранного языка}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{\kStepeniZnaniaInostrannogoYazika}{\kStepeniZnaniaInostrannogoYazikaPK}{\kStepeniZnaniaInostrannogoYazikaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Стаж работы}{\ruleOneMondatoryManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\stazhRaboti}{\stazhRabotiPK}{\stazhRabotiFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Состояние в браке}{\ruleOneMondatoryManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\sostoyaniyeVBrake}{\sostoyaniyeVBrakePK}{\sostoyaniyeVBrakeFK} \\ 
+ 
+ \hline
+ \firstColumn{Состояние в браке}{Определяет}{Классификатор состояния в браке}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\sostoyaniyeVBrake}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\kSostoyaniaVBrake}{\kSostoyaniaVBrakePK}{\kSostoyaniaVBrakeFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Родственники}{\ruleOneOptionalManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\rodtvenniki}{\rodtvennikiPK}{\rodtvennikiFK} \\ 
+ 
+ \hline
+ \firstColumn{Родственники}{Определяет}{Классификатор родства}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\rodtvenniki}{\rodtvennikiPK}{\rodtvennikiFK}{\kRodstva}{\kRodstvaPK}{\kRodstvaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Документ об образовании}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\documentObObrazovanii}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK} \\ 
+ 
+ \hline
+ \firstColumn{Документ об образовании}{Подтверждает}{Классификатор направления}{\ruleManyOptionalOneOptional} & \ruleManyOptionalOneOptionalNum & \thirdColumn{\documentObObrazovanii}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK}{\kNapravlenia}{\kNagradPK}{\kNapravleniaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Классификатор образования}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\kObrazovania}{\kDolzhosteyPK}{\kObrazovaniaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Социальные льготы}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\sotsialnieLgoti}{\sostoyaniyeVBrakePK}{\sotsialnieLgotiFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Имеет}{Отпуск}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\otpusk}{\otpuskPK}{\otpuskFK} \\ 
+ 
+ \hline
+ \firstColumn{Отпуск}{Определяет}{Классификатор вида отпуска}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\otpusk}{\otpuskPK}{\otpuskFK}{\kVidaOtpuska}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
+ 
+ \hline
+ \firstColumn{Работник}{Награжден}{Награды, почетные звания}{\ruleOneOptionalManyMondatory} & \ruleOneMondatoryManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\nagradiPochetnieZvaniya}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK} \\ 
+ 
+ \hline
+ \firstColumn{Награды, почетные звания}{Определяет}{Классификатор наград}{\ruleManyMondatoryOneOptional} & \ruleManyMondatoryOneOptionalNum & \thirdColumn{\nagradiPochetnieZvaniya}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK}{\kNagrad}{\kNagradPK}{\kNagradFK} \\ 
+ 
+ %\hline
+ %\firstColumn{}{}{}{\rule} & \ruleNum & \thirdColumn{}{}{}{}{}{} \\ 
+ 
+ \hline
+\end{longtable}
+\end{center}
 
 
 
