@@ -4,13 +4,7 @@
 \author{Верхотуров В.С. БСБО-05-20 \\ РТУ МИРЭА}
 \date{Апрель 2022}
 
-\usepackage[a4paper,
-            bindingoffset=0.2in,
-            left=0.7in,
-            right=0.7in,
-            top=0.7in,
-            bottom=0.7in,
-            footskip=.25in]{geometry}
+\usepackage[a4paper, bindingoffset=0.2in, left=1in, right=1in, top=1in, bottom=1in, footskip=.25in]{geometry}
 
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -35,9 +29,35 @@
 %% Columns
 \newcommand{\firstColumn}[4]{#1 - #2 - #3 \newline #4}
 
-\newcommand{\thirdColumn}[6]{#1 \newline Первичный ключ - #2 \newline Внешний(е) ключ(-и): #3 \newline #4 \newline Первичный ключ - #5 \newline Внешний(е) ключ(-и): #6}
+\newcommand{\thirdColumn}[6]{
+#1 \newline 
+Первичный ключ - #2 \newline 
+\setbox0=\hbox{#3\unskip}\ifdim\wd0=0pt
+\else
+  Внешний(е) ключ(-и): #3 \newline
+\fi
+#4 \newline 
+Первичный ключ - #5 \newline
+\setbox0=\hbox{#6\unskip}\ifdim\wd0=0pt
+\else
+  Внешний(е) ключ(-и): #6 \newline
+\fi
+}
 
-\newcommand{\generalizedColumn}[6]{#1: \newline Первичный ключ - #2 \newline Внешний(е) ключ(-и): #3 \newline #4: \newline Первичный ключ - #5 \newline Внешний(е) ключ(-и): #6}
+\newcommand{\generalizedColumn}[6]{
+#1: \newline 
+Первичный ключ - #2 \newline 
+\setbox0=\hbox{#3\unskip}\ifdim\wd0=0pt
+\else
+  Внешний(е) ключ(-и): #3 \newline
+\fi
+#4: \newline 
+Первичный ключ - #5 \newline
+\setbox0=\hbox{#6\unskip}\ifdim\wd0=0pt
+\else
+  Внешний(е) ключ(-и): #6 \newline
+\fi
+}
 
 
 %%  Rules
@@ -100,7 +120,7 @@
 \newcommand{\kGrazhdanstva}{Классификатор гражданства (\pk{Код гражданства}, Наименование гражданства)}
 
 \newcommand{\kGrazhdanstvaPK}{Код гражданства}
-\newcommand{\kGrazhdanstvaFK}{-}
+\newcommand{\kGrazhdanstvaFK}{}
 
 %%% Страны
 \newcommand{\strani}{Страны (\pk{Код страны}, \pfk{Табельный номер}, Наименование страны, Дата выдачи, Вид документа, Наименование документа)}
@@ -112,13 +132,13 @@
 \newcommand{\kInostrannogoYazika}{Классификатор иностранного языка (\pk{Код иностранного языка}, Наименование иностранного языка)}
 
 \newcommand{\kInostrannogoYazikaPK}{Код иностранного языка}
-\newcommand{\kInostrannogoYazikaFK}{-}
+\newcommand{\kInostrannogoYazikaFK}{}
 
 %%% Классификатор степени знания иностранного языка
 \newcommand{\kStepeniZnaniaInostrannogoYazika}{Классификатор степени знания иностранного языка (\pk{Код степени знания}, Наименование степени знания)}
 
 \newcommand{\kStepeniZnaniaInostrannogoYazikaPK}{Код степени знания}
-\newcommand{\kStepeniZnaniaInostrannogoYazikaFK}{-}
+\newcommand{\kStepeniZnaniaInostrannogoYazikaFK}{}
 
 %%% Знание иностранного языка
 \newcommand{\znanieInostrannogoYazika}{Знание иностранного языка (\pfk{Табельный номер}, \pk{Код иностранного языка}, Код степени знания иностранного языка)}
@@ -136,13 +156,13 @@
 \newcommand{\kPodrazdeleniya}{Классификатор подразделения (\pk{Код подразделения}, Наименование подразделения, Условное обозначение, Аббревиатура)}
 
 \newcommand{\kPodrazdeleniyaPK}{Код подразделения}
-\newcommand{\kPodrazdeleniyaFK}{-}
+\newcommand{\kPodrazdeleniyaFK}{}
 
 %%% Классификатор должностей
 \newcommand{\kDolzhostey}{Классификатор должностей (\pk{Код должности}, Наименование должности, Код ОКПДТР)}
 
 \newcommand{\kDolzhosteyPK}{Код должности}
-\newcommand{\kDolzhosteyFK}{-}
+\newcommand{\kDolzhosteyFK}{}
 
 %%% Штатные единицы
 \newcommand{\shtatnieEdinitsi}{Штатные единицы (Кол - во штатных единиц, \pfk{Номер штатного расписания организации}, \pfk{Код подразделения}, \pfk{Код основной должности}, Тарифная ставка, Надбавка, \fk{Код другой должности}, \pk{Дата назначения}, Основание, \fk{Код основания прекращения трудового договора})}
@@ -154,7 +174,7 @@
 \newcommand{\prikaz}{Приказ (\pk{Номер приказа}, Дата приказа, Тема)}
 
 \newcommand{\prikazPK}{Номер приказа}
-\newcommand{\prikazFK}{-}
+\newcommand{\prikazFK}{}
 
 %%% Трудовой договор
 \newcommand{\trudovoiDogovor}{Трудовой договор (\pk{Номер трудового договора}, Дата, Дата с, Дата по, Дата испытательного срока, Ставка, \fk{Код основания прекращения}, \fk{Код вида работы}, \fk{Код решения комиссии})}
@@ -166,13 +186,13 @@
 \newcommand{\kHarakteraRaboti}{Классификатор характера работы (\pk{Код характера}, Наименование характера)}
 
 \newcommand{\kHarakteraRabotiPK}{Код характера}
-\newcommand{\kHarakteraRabotiFK}{-}
+\newcommand{\kHarakteraRabotiFK}{}
 
 %%% Классификатор вида работы
 \newcommand{\kVidaRaboti}{Классификатор вида работы (\pk{Код вида работы}, Наименование вида работы)}
 
 \newcommand{\kVidaRabotiPK}{Код вида работы}
-\newcommand{\kVidaRabotiFK}{-}
+\newcommand{\kVidaRabotiFK}{}
 
 %%% Классификатор основания прекращения трудового договора
 \newcommand{\kOsnovaniyaPrekrascheniaTrudovogoDogovora}{Классификатор основания прекращения трудового договора (\pk{Код}, Наименование)}
@@ -184,13 +204,13 @@
 \newcommand{\kObrazovania}{Классификатор образования (\pk{Код образования}, Наименование образования)}
 
 \newcommand{\kObrazovaniaPK}{Код образования}
-\newcommand{\kObrazovaniaFK}{-}
+\newcommand{\kObrazovaniaFK}{}
 
 %%% Классификатор направления
 \newcommand{\kNapravlenia}{Классификатор направления (\pk{Код ОКСО}, Наименование направления)}
 
 \newcommand{\kNapravleniaPK}{Код ОКСО}
-\newcommand{\kNapravleniaFK}{-}
+\newcommand{\kNapravleniaFK}{}
 
 %%% Документ об образовании
 \newcommand{\documentObObrazovanii}{Документ об образовании (\pfk{Табельный номер}, \pk{Номер}, Вид документа, Учреждение, Серия, Номер, Квалификация, \fk{Направление})}
@@ -208,7 +228,7 @@
 \newcommand{\kSostoyaniaVBrake}{Классификатор состояния в браке (\pk{Код ОКИН}, Наименование)}
 
 \newcommand{\kSostoyaniaVBrakePK}{Код ОКИН}
-\newcommand{\kSostoyaniaVBrakeFK}{-}
+\newcommand{\kSostoyaniaVBrakeFK}{}
 
 %%% Состояние в браке
 \newcommand{\sostoyaniyeVBrake}{Состояние в браке (\pfk{Табельный номер}, \fk{Код ОКИН}, Дата с, Дата по, \pk{Номер изменения состояния})}
@@ -220,7 +240,7 @@
 \newcommand{\kRodstva}{Классификатор родства (\pk{Код ОКИН}, Наименование)}
 
 \newcommand{\kRodstvaPK}{Код ОКИН}
-\newcommand{\kRodstvaFK}{-}
+\newcommand{\kRodstvaFK}{}
 
 %%% Родственники
 \newcommand{\rodtvenniki}{Родственники (Фамилия, Имя, Отчество, \fk{Код родства}, Год рождения, \pfk{Табельный номер}, \pk{Номер родственника})}
@@ -238,13 +258,13 @@
 \newcommand{\kVoinskihZvaniy}{Классификатор воинских званий (\pk{Код ОКИН}, Наименование)}
 
 \newcommand{\kVoinskihZvaniyPK}{Код ОКИН}
-\newcommand{\kVoinskihZvaniyFK}{-}
+\newcommand{\kVoinskihZvaniyFK}{}
 
 %%% Классификатор составов
 \newcommand{\kSostavov}{Классификатор составов (\pk{Код ОКИН}, Наименование)}
 
 \newcommand{\kSostavovPK}{Код ОКИН}
-\newcommand{\kSostavovFK}{-}
+\newcommand{\kSostavovFK}{}
 
 %%% Аттестация
 \newcommand{\attestatsiya}{Аттестация (Дата, \fk{Код решения комиссии}, Номер протокола, Дата протокола, Основание, \pfk{Табельный номер})}
@@ -256,7 +276,7 @@
 \newcommand{\kResheniyKomissii}{Классификатор решений комиссий (\pk{Код решения комиссии}, Наименование)}
 
 \newcommand{\kResheniyKomissiiPK}{Код решения комиссии}
-\newcommand{\kResheniyKomissiiFK}{-}
+\newcommand{\kResheniyKomissiiFK}{}
 
 %%% Повышение квалификации
 \newcommand{\povishenieKvalifikatsii}{Повышение квалификации (Дата с, Дата после, \fk{Код вида повышения квалификации}, Наименование, адрес, Наименование образовательного учреждения, Наименование документа, Дата документа, Серия, номер документа, Основание, \pfk{Табельный номер}, \pk{Номер})}
@@ -292,7 +312,7 @@
 \newcommand{\kVidaOtpuska}{Классификатор вида отпуска (\pk{Код}, Наименование)}
 
 \newcommand{\kVidaOtpuskaPK}{Код}
-\newcommand{\kVidaOtpuskaFK}{-}
+\newcommand{\kVidaOtpuskaFK}{}
 
 %%% Классификатор вида повышения квалификации
 \newcommand{\kVidaPovisheniyaKvalifikatsii}{Классификатор вида повышения квалификации (\pk{Код}, Наименование)}
@@ -304,7 +324,7 @@
 \newcommand{\kNagrad}{Классификатор наград (\pk{Код}, Наименование)}
 
 \newcommand{\kNagradPK}{Код}
-\newcommand{\kNagradFK}{-}
+\newcommand{\kNagradFK}{}
 
 
 \begin{document}
@@ -436,7 +456,7 @@
 \end{longtable}
 \end{center}
 
-\pagebreak
+%\pagebreak
 \section{Обобщенная схема реляционного отношения}
 
 \begin{center}
