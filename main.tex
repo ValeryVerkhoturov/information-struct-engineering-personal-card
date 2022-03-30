@@ -37,7 +37,7 @@
 
 \newcommand{\thirdColumn}[6]{#1 \newline Первичный ключ - #2 \newline Внешний(е) ключ(-и): #3 \newline #4 \newline Первичный ключ - #5 \newline Внешний(е) ключ(-и): #6}
 
-\newcommand{\generalizedColumn}[6]{\thirdColumn{#1}{#2}{#3}{#4}{#5}{#6}}
+\newcommand{\generalizedColumn}[6]{#1: \newline Первичный ключ - #2 \newline Внешний(е) ключ(-и): #3 \newline #4: \newline Первичный ключ - #5 \newline Внешний(е) ключ(-и): #6}
 
 
 %%  Rules
@@ -441,6 +441,7 @@
 
 \begin{center}
 \begin{longtable}{ | m{10em} | m{30em} | } 
+
  \hline
  \firstColumn{Работник}{Изменял}{Старые ФИО}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Старые ФИО}{\starieFIOPK}{\starieFIOFK} \\ 
  
@@ -448,112 +449,112 @@
  \firstColumn{Работник}{Имеет}{Классификатор гражданства}{\ruleManyOptionalOneMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Классификатор гражданства}{\kGrazhdanstvaPK}{\kGrazhdanstvaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Профессиональная переподготовка}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\professionalnayaPerepodgatovka}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK} \\ 
+ \firstColumn{Работник}{Имеет}{Профессиональная переподготовка}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Профессиональная переподготовка}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK} \\ 
  
  \hline
- \firstColumn{Профессиональная переподготовка}{Определяет}{Классификатор должностей}{\ruleManyMondatoryOneOptional}  & \generalizedColumn{\professionalnayaPerepodgatovka}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK}{\kDolzhostey}{\kDolzhosteyPK}{\kDolzhosteyFK} \\ 
+ \firstColumn{Профессиональная переподготовка}{Определяет}{Классификатор должностей}{\ruleManyMondatoryOneOptional}  & \generalizedColumn{Профессиональная переподготовка}{\professionalnayaPerepodgatovkaPK}{\professionalnayaPerepodgatovkaFK}{Классификатор должностей}{\kDolzhosteyPK}{\kDolzhosteyFK} \\ 
  
  \hline
- \firstColumn{Классификатор должностей}{Имеется}{Штатные единицы}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\kDolzhostey}{\kDolzhosteyPK}{\kDolzhosteyFK}{\shtatnieEdinitsi}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnieEdinitsiPK} \\ 
+ \firstColumn{Классификатор должностей}{Имеется}{Штатные единицы}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Классификатор должностей}{\kDolzhosteyPK}{\kDolzhosteyFK}{Штатные единицы}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnieEdinitsiPK} \\ 
  
  \hline
- \firstColumn{Штатные единицы}{Имеет}{Классификатор подразделения}{\ruleManyMondatoryOneMondatory} & \generalizedColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\kPodrazdeleniya}{\kPodrazdeleniyaPK}{\kPodrazdeleniyaFK} \\ 
+ \firstColumn{Штатные единицы}{Имеет}{Классификатор подразделения}{\ruleManyMondatoryOneMondatory} & \generalizedColumn{Штатные единицы}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{Классификатор подразделения}{\kPodrazdeleniyaPK}{\kPodrazdeleniyaFK} \\ 
  
  \hline
- \firstColumn{Штатные единицы}{Включает}{Штатное расписание организации}{\ruleManyMondatoryOneMondatory} & \generalizedColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\shtatnoyeRaspisanieOrganizatsii}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK} \\ 
+ \firstColumn{Штатные единицы}{Включает}{Штатное расписание организации}{\ruleManyMondatoryOneMondatory} & \generalizedColumn{Штатные единицы}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{Штатное расписание организации}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK} \\ 
  
  \hline
- \firstColumn{Штатное расписание организации}{Утверждает}{Приказ}{\ruleOneMondatoryOneOptional} & \generalizedColumn{\shtatnoyeRaspisanieOrganizatsii}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK}{\prikaz}{\prikazPK}{\prikazFK} \\ 
+ \firstColumn{Штатное расписание организации}{Утверждает}{Приказ}{\ruleOneMondatoryOneOptional} & \generalizedColumn{Штатное расписание организации}{\shtatnoyeRaspisanieOrganizatsiiPK}{\shtatnoyeRaspisanieOrganizatsiiFK}{Приказ}{\prikazPK}{\prikazFK} \\ 
  
  \hline
- \firstColumn{Приказ}{Соответствует}{Трудовой договор}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\prikaz}{\prikazPK}{\prikazFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
+ \firstColumn{Приказ}{Соответствует}{Трудовой договор}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Приказ}{\prikazPK}{\prikazFK}{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
  
  \hline
- \firstColumn{Штатные единицы}{Принимается}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{\shtatnieEdinitsi}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
+ \firstColumn{Штатные единицы}{Принимается}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{Штатные единицы}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
  
  \hline
- \firstColumn{Трудовой договор}{Определяет}{Классификатор характера работы}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kHarakteraRaboti}{\kHarakteraRabotiPK}{\kHarakteraRabotiFK} \\ 
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор характера работы}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{Классификатор характера работы}{\kHarakteraRabotiPK}{\kHarakteraRabotiFK} \\ 
  
  \hline
- \firstColumn{Трудовой договор}{Определяет}{Классификатор вида работы}{\ruleManyOptionalOneMondatory} & \generalizedColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kVidaRaboti}{\kDolzhosteyPK}{\attestatsiyaFK} \\ 
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор вида работы}{\ruleManyOptionalOneMondatory} & \generalizedColumn{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{Классификатор вида работы}{\kDolzhosteyPK}{\attestatsiyaFK} \\ 
  
  \hline
- \firstColumn{Трудовой договор}{Определяет}{Классификатор основания прекращения трудовой деятельности}{\ruleManyOptionalOneMondatory} & \generalizedColumn{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{\kOsnovaniyaPrekrascheniaTrudovogoDogovora}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraPK}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraFK} \\ 
+ \firstColumn{Трудовой договор}{Определяет}{Классификатор основания прекращения трудовой деятельности}{\ruleManyOptionalOneMondatory} & \generalizedColumn{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK}{Классификатор основания прекращения трудовой деятельности}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraPK}{\kOsnovaniyaPrekrascheniaTrudovogoDogovoraFK} \\ 
  
  \hline
- \firstColumn{Работник}{Заключает}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\trudovoiDogovor}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
+ \firstColumn{Работник}{Заключает}{Трудовой договор}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Трудовой договор}{\trudovoiDogovorPK}{\trudovoiDogovorFK} \\ 
 
  \hline
- \firstColumn{Работник}{Имеет}{Страны}{\ruleManyOptionalOneOptional} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\strani}{\straniPK}{\straniFK} \\ 
+ \firstColumn{Работник}{Имеет}{Страны}{\ruleManyOptionalOneOptional} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Страны}{\straniPK}{\straniFK} \\ 
  
  \hline
- \firstColumn{Работник}{Аттестован}{Аттестация}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\attestatsiya}{\attestatsiyaPK}{\attestatsiyaFK} \\ 
+ \firstColumn{Работник}{Аттестован}{Аттестация}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Аттестация}{\attestatsiyaPK}{\attestatsiyaFK} \\ 
  
  \hline
- \firstColumn{Аттестация}{Определяет}{Классификатор решения комиссии}{\ruleOneMondatoryOneOptional} & \generalizedColumn{\attestatsiya}{\attestatsiyaPK}{\attestatsiyaFK}{\kResheniyKomissii}{\kResheniyKomissiiPK}{\kResheniyKomissiiFK} \\ 
+ \firstColumn{Аттестация}{Определяет}{Классификатор решения комиссии}{\ruleOneMondatoryOneOptional} & \generalizedColumn{Аттестация}{\attestatsiyaPK}{\attestatsiyaFK}{Классификатор решения комиссии}{\kResheniyKomissiiPK}{\kResheniyKomissiiFK} \\ 
  
  \hline
- \firstColumn{Работник}{Состоит}{Воинский учет}{\ruleOneOptionalOneMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK} \\ 
+ \firstColumn{Работник}{Состоит}{Воинский учет}{\ruleOneOptionalOneMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Воинский учет}{\voinsiyUchetPK}{\voinsiyUchetFK} \\ 
  
  \hline
- \firstColumn{Воиский учет}{Определяет}{Классификатор составов}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK}{\kSostavov}{\kSostavovPK}{\kSostavovFK} \\ 
+ \firstColumn{Воиский учет}{Определяет}{Классификатор составов}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Воиский учет}{\voinsiyUchetPK}{\voinsiyUchetFK}{Классификатор составов}{\kSostavovPK}{\kSostavovFK} \\ 
  
  \hline
- \firstColumn{Воинский учет}{Определяет}{Классификатор воинского звания}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\voinsiyUchet}{\voinsiyUchetPK}{\voinsiyUchetFK}{\kVoinskihZvaniy}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
+ \firstColumn{Воинский учет}{Определяет}{Классификатор воинского звания}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Воинский учет}{\voinsiyUchetPK}{\voinsiyUchetFK}{Классификатор воинского звания}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Повышение квалификации}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\povishenieKvalifikatsii}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK} \\ 
+ \firstColumn{Работник}{Имеет}{Повышение квалификации}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Повышение квалификации}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK} \\ 
  
  \hline
- \firstColumn{Повышение квалификации}{Определяет}{Классификатор вида повышения квалификации}{\ruleOneMondatoryOneOptional} & \generalizedColumn{\povishenieKvalifikatsii}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK}{\kVidaPovisheniyaKvalifikatsii}{\kVidaPovisheniyaKvalifikatsiiPK}{\kVidaPovisheniyaKvalifikatsiiFK} \\ 
+ \firstColumn{Повышение квалификации}{Определяет}{Классификатор вида повышения квалификации}{\ruleOneMondatoryOneOptional} & \generalizedColumn{Повышение квалификации}{\povishenieKvalifikatsiiPK}{\povishenieKvalifikatsiiFK}{Классификатор вида повышения квалификации}{\kVidaPovisheniyaKvalifikatsiiPK}{\kVidaPovisheniyaKvalifikatsiiFK} \\ 
  
  \hline
- \firstColumn{Работник}{Знает}{Знание иностранного языка}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK} \\ 
+ \firstColumn{Работник}{Знает}{Знание иностранного языка}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Знание иностранного языка}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK} \\ 
  
  \hline
- \firstColumn{Знание иностранного языка}{Знают}{Классификатор иностранного языка}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{\kInostrannogoYazika}{\kInostrannogoYazikaPK}{\kInostrannogoYazikaFK} \\ 
+ \firstColumn{Знание иностранного языка}{Знают}{Классификатор иностранного языка}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Знание иностранного языка}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{Классификатор иностранного языка}{\kInostrannogoYazikaPK}{\kInostrannogoYazikaFK} \\ 
  
  \hline
- \firstColumn{Знание иностранного языка}{Знает как}{Классификатор степени знания иностранного языка}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\znanieInostrannogoYazika}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{\kStepeniZnaniaInostrannogoYazika}{\kStepeniZnaniaInostrannogoYazikaPK}{\kStepeniZnaniaInostrannogoYazikaFK} \\ 
+ \firstColumn{Знание иностранного языка}{Знает как}{Классификатор степени знания иностранного языка}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Знание иностранного языка}{\znanieInostrannogoYazikaPK}{\znanieInostrannogoYazikaFK}{Классификатор степени знания иностранного языка}{\kStepeniZnaniaInostrannogoYazikaPK}{\kStepeniZnaniaInostrannogoYazikaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Стаж работы}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\stazhRaboti}{\stazhRabotiPK}{\stazhRabotiFK} \\ 
+ \firstColumn{Работник}{Имеет}{Стаж работы}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Стаж работы}{\stazhRabotiPK}{\stazhRabotiFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Состояние в браке}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\sostoyaniyeVBrake}{\sostoyaniyeVBrakePK}{\sostoyaniyeVBrakeFK} \\ 
+ \firstColumn{Работник}{Имеет}{Состояние в браке}{\ruleOneMondatoryManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Состояние в браке}{\sostoyaniyeVBrakePK}{\sostoyaniyeVBrakeFK} \\ 
  
  \hline
- \firstColumn{Состояние в браке}{Определяет}{Классификатор состояния в браке}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\sostoyaniyeVBrake}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{\kSostoyaniaVBrake}{\kSostoyaniaVBrakePK}{\kSostoyaniaVBrakeFK} \\ 
+ \firstColumn{Состояние в браке}{Определяет}{Классификатор состояния в браке}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Состояние в браке}{\shtatnieEdinitsiPK}{\shtatnieEdinitsiFK}{Классификатор состояния в браке}{\kSostoyaniaVBrakePK}{\kSostoyaniaVBrakeFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Родственники}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\rodtvenniki}{\rodtvennikiPK}{\rodtvennikiFK} \\ 
+ \firstColumn{Работник}{Имеет}{Родственники}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Родственники}{\rodtvennikiPK}{\rodtvennikiFK} \\ 
  
  \hline
- \firstColumn{Родственники}{Определяет}{Классификатор родства}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\rodtvenniki}{\rodtvennikiPK}{\rodtvennikiFK}{\kRodstva}{\kRodstvaPK}{\kRodstvaFK} \\ 
+ \firstColumn{Родственники}{Определяет}{Классификатор родства}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Родственники}{\rodtvennikiPK}{\rodtvennikiFK}{Классификатор родства}{\kRodstvaPK}{\kRodstvaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Документ об образовании}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\documentObObrazovanii}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK} \\ 
+ \firstColumn{Работник}{Имеет}{Документ об образовании}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Документ об образовании}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK} \\ 
  
  \hline
- \firstColumn{Документ об образовании}{Подтверждает}{Классификатор направления}{\ruleManyOptionalOneOptional} & \generalizedColumn{\documentObObrazovanii}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK}{\kNapravlenia}{\kNagradPK}{\kNapravleniaFK} \\ 
+ \firstColumn{Документ об образовании}{Подтверждает}{Классификатор направления}{\ruleManyOptionalOneOptional} & \generalizedColumn{Документ об образовании}{\documentObObrazovaniiPK}{\documentObObrazovaniiFK}{Классификатор направления}{\kNagradPK}{\kNapravleniaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Классификатор образования}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\kObrazovania}{\kDolzhosteyPK}{\kObrazovaniaFK} \\ 
+ \firstColumn{Работник}{Имеет}{Классификатор образования}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Классификатор образования}{\kDolzhosteyPK}{\kObrazovaniaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Социальные льготы}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\sotsialnieLgoti}{\sostoyaniyeVBrakePK}{\sotsialnieLgotiFK} \\ 
+ \firstColumn{Работник}{Имеет}{Социальные льготы}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Социальные льготы}{\sostoyaniyeVBrakePK}{\sotsialnieLgotiFK} \\ 
  
  \hline
- \firstColumn{Работник}{Имеет}{Отпуск}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\otpusk}{\otpuskPK}{\otpuskFK} \\ 
+ \firstColumn{Работник}{Имеет}{Отпуск}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Отпуск}{\otpuskPK}{\otpuskFK} \\ 
  
  \hline
- \firstColumn{Отпуск}{Определяет}{Классификатор вида отпуска}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\otpusk}{\otpuskPK}{\otpuskFK}{\kVidaOtpuska}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
+ \firstColumn{Отпуск}{Определяет}{Классификатор вида отпуска}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Отпуск}{\otpuskPK}{\otpuskFK}{Классификатор вида отпуска}{\kVidaOtpuskaPK}{\kVidaOtpuskaFK} \\ 
  
  \hline
- \firstColumn{Работник}{Награжден}{Награды, почетные звания}{\ruleOneOptionalManyMondatory} & \generalizedColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\nagradiPochetnieZvaniya}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK} \\ 
+ \firstColumn{Работник}{Награжден}{Награды, почетные звания}{\ruleOneOptionalManyMondatory} & \generalizedColumn{Работник}{\rabotnikPK}{\rabotnikFK}{Награды, почетные звания}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK} \\ 
  
  \hline
- \firstColumn{Награды, почетные звания}{Определяет}{Классификатор наград}{\ruleManyMondatoryOneOptional} & \generalizedColumn{\nagradiPochetnieZvaniya}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK}{\kNagrad}{\kNagradPK}{\kNagradFK} \\ 
+ \firstColumn{Награды, почетные звания}{Определяет}{Классификатор наград}{\ruleManyMondatoryOneOptional} & \generalizedColumn{Награды, почетные звания}{\nagradiPochetnieZvaniyaPK}{\nagradiPochetnieZvaniyaFK}{Классификатор наград}{\kNagradPK}{\kNagradFK} \\ 
  
  %\hline
  %\firstColumn{}{}{}{\rule} & \generalizedColumn{}{}{}{}{}{} \\ 
