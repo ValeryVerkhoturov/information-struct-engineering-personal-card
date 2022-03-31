@@ -2,7 +2,7 @@
 
 \title{Проектирование реляционных отношений личной карточки}
 \author{Верхотуров В.С. БСБО-05-20 \\ РТУ МИРЭА}
-\date{Апрель 2022}
+\date{\today}
 
 \usepackage[a4paper, bindingoffset=0.2in, left=1in, right=1in, top=1in, bottom=1in, footskip=.25in]{geometry}
 
@@ -31,33 +31,20 @@
 
 \newcommand{\thirdColumn}[6]{
 #1 \newline 
-Первичный ключ - #2 \newline 
+\underline{Первичный ключ} - #2 \newline 
 \setbox0=\hbox{#3\unskip}\ifdim\wd0=0pt
 \else
-  Внешний(е) ключ(-и): #3 \newline
+  \underline{Внешний(е) ключ(-и)}: #3 \newline
 \fi
 #4 \newline 
-Первичный ключ - #5 \newline
+\underline{Первичный ключ} - #5 \newline
 \setbox0=\hbox{#6\unskip}\ifdim\wd0=0pt
 \else
-  Внешний(е) ключ(-и): #6 \newline
+  \underline{Внешний(е) ключ(-и)}: #6 \newline
 \fi
 }
 
-\newcommand{\generalizedColumn}[6]{
-#1: \newline 
-Первичный ключ - #2 \newline 
-\setbox0=\hbox{#3\unskip}\ifdim\wd0=0pt
-\else
-  Внешний(е) ключ(-и): #3 \newline
-\fi
-#4: \newline 
-Первичный ключ - #5 \newline
-\setbox0=\hbox{#6\unskip}\ifdim\wd0=0pt
-\else
-  Внешний(е) ключ(-и): #6 \newline
-\fi
-}
+\newcommand{\generalizedColumn}[6]{\thirdColumn{#1:}{#2}{#3}{#4:}{#5}{#6}}
 
 
 %%  Rules
@@ -334,7 +321,8 @@
 \section{Схема реляционного отношения}
 
 \begin{center}
-\begin{longtable}{ | m{10em} | m{0.5em}| m{30em} | } 
+\begin{longtable}{ | m{10em} | m{0.5em}| m{30em} | }
+ 
  \hline
  \firstColumn{Работник}{Изменял}{Старые ФИО}{\ruleOneOptionalManyMondatory} & \ruleOneOptionalManyMondatoryNum & \thirdColumn{\rabotnik}{\rabotnikPK}{\rabotnikFK}{\starieFIO}{\starieFIOPK}{\starieFIOFK} \\ 
  
