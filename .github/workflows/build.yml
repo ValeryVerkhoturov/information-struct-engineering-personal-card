@@ -9,11 +9,11 @@ jobs:
       uses: xu-cheng/latex-action@v2
       with:
         root_file: main.tex
-        working_directory: ./
+        working_directory: output/
         args: -jobname=informationStructEngineeringPersonalCard -pdf -file-line-error -halt-on-error -interaction=nonstopmode
         compiler: latexmk
     - name: Upload pdf document
       uses: actions/upload-artifact@v2
       with:
         name: informationStructEngineeringPersonalCard
-        path: informationStructEngineeringPersonalCard.pdf
+        path: output/informationStructEngineeringPersonalCard.pdf
